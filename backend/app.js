@@ -1,7 +1,12 @@
+require ("./api/config/DBConnection");
+
 var express = require("express"),
+    MongoClient = require("mongodb").MongoClient,
     bodyParser = require("body-parser"),
-    router = express.Router();
-    var path = require('path');
+    routes = require("./api/routes"),
+    router = express.Router(),
+    var path = require('path'),
+    url = "mongodb://localhost:3000/mascota",
     app = express();
     /*
       Middleware to parse the request body that is in format "application/json" or
@@ -24,5 +29,6 @@ var express = require("express"),
     /*Middleware to match the request with one of our defined routes to do a certain function,
 All requests should have /api before writing the route as a convention for api servers
 */
+    app.use("/api", routes);
     console.log("Mascota is up and running!");
     module.exports = app;
