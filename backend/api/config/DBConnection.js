@@ -58,12 +58,3 @@ mongoose.connect(dburl, function(err) {
 });
 
 require("../models/user.model");
-require("../models/admin.model");
-require("../models/question.model");
-require("../models/application.model");
-require("../models/expert.model");
-require("../models/topic.model");
-require("../models/reservation.model");
-require("../models/requestselecting.model");
-require("../models/acceptedRequest.model");
-require("../models/feedback.model");
