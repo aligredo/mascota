@@ -5,7 +5,11 @@
  */
 
 var app = require('../app'),
-  http = require('http');
+mongoose = require("mongoose"),
+debug = require('debug')('mascota:server'),
+http = require('http'),
+User = mongoose.model("User");
+
 /**
  * Normalize a port into a number, string, or false.
  */
