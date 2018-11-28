@@ -1,44 +1,11 @@
 var express = require("express"),
 	router = express.Router(),
 	jwt = require("jsonwebtoken"),
-	cloudinary = require('cloudinary'),
-	multer  = require('multer'),
-	cloudinaryStorage = require('multer-storage-cloudinary'),
 	path = require('path'),
 	express = require('express'),
 	app = express();
-	cloudinary.config({  //Your Cloudinary API Data
-	  cloud_name: 'dgwildqsv',
-	  api_key: '885116352125168',
-	  api_secret: 'dwvBE716ok5Aoh0m2PSWDXIkLCM'
-	});
 	authCtrl = require("../controllers/auth.controller");
-var multer = require("multer");
 var MongoClient = require("mongodb").MongoClient;
-var assert = require("assert");
-//var url = "mongodb://localhost:27017/office-hours";
-// 	var path = require('path');
-//   var fs = require('fs');
-//   var crypto = require('crypto');
-//   var path = require('path')
-//   var multer = require('multer')
-
-//   var storage = multer.diskStorage({
-// 	destination: './public/images/',
-// 	filename: function (req, file, cb) {
-// 	  crypto.pseudoRandomBytes(16, function (err, raw) {
-// 		if (err) return cb(err);
-
-// 		cb(null, raw.toString('hex') + path.extname(file.originalname));
-// 	  })
-// 	}
-//   })
-
-//   var upload = multer({ storage: storage })
-
-//   router.get('/', function (req, res) {
-// 	  res.render('register');
-//   });
 
 var isAuthenticated = function(req, res, next) {
 	var token = req.headers["authorization"];

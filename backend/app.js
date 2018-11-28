@@ -5,7 +5,7 @@ var express = require("express"),
     bodyParser = require("body-parser"),
     routes = require("./api/routes"),
     router = express.Router(),
-    var path = require('path'),
+     path = require('path'),
     url = "mongodb://localhost:3000/mascota",
     app = express();
     /*
