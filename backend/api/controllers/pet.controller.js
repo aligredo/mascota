@@ -31,14 +31,34 @@ module.exports.getAllPets = function(req, res, next){
 };
 
 module.exports.getPetsByOwnerUsername = function(req, res, next) {
-	if (!Validations.isString(req.params.username)) {
+	if (!Validations.isString(req.body.username)) {
 		return res.status(422).json({
 			err: null,
 			msg: "username parameter must be a valid String.",
 			data: null
 		});
 	}
-	Pet.find({ ownerUsername: req.params.username }).exec(function(err, pets) {
+	Pet.find({ ownerUsername: req.body.username }).exec(function(err, pets) {
+		if (err) {
+			return next(err);
+		}
+		res.status(200).json({
+			err: null,
+			msg: "Pets are retrieved successfully.",
+			data: pets
+		});
+	});
+};
+
+module.exports.getPetsByType = function(req, res, next) {
+	if (!Validations.isString(req.body.type)) {
+		return res.status(422).json({
+			err: null,
+			msg: "type must be a valid String.",
+			data: null
+		});
+	}
+	Pet.find({ type: req.body.type }).exec(function(err, pets) {
 		if (err) {
 			return next(err);
 		}
