@@ -167,3 +167,29 @@ module.exports.getPetsByGender = function(req, res, next) {
 		});
 	});
 };
+
+module.exports.deletePet = function(req, res, next){
+    if (!(Validations.isString(req.body.gender) 
+        && Validations.isString(req.body.type) 
+        && Validations.isString(req.body.ownerUsername)
+        && Validations.isString(req.body.name))){
+		return res.status(422).json({
+			err: null,
+			msg: "not valid request",
+			data: null
+		});
+    }
+    else{
+        Pet.remove({ gender: req.params.gender, type: req.params.type,
+             ownerUsername: req.params.ownerUsername, name: req.params.name  }, true).exec(function(err, pets) {
+                if (err) {
+                    return next(err);
+                }
+                res.status(200).json({
+                    err: null,
+                    msg: "Deleted",
+                    data: null
+                });
+            });
+    }
+};
