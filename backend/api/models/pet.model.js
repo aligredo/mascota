@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var petSchema = mongoose.Schema({
-    ownerName:{
+    ownerUsername:{
         type: String,
         trim: true,
         required: true,
