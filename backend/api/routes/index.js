@@ -5,6 +5,7 @@ var express = require("express"),
 	express = require('express'),
 	app = express();
 	authCtrl = require("../controllers/auth.controller");
+	petCtrl = require("../controllers/pet.controller");
 var MongoClient = require("mongodb").MongoClient;
 
 var isAuthenticated = function(req, res, next) {
@@ -45,5 +46,43 @@ var isNotAuthenticated = function(req, res, next) {
 //-----------------------------Authentication Routes-------------------------
 router.post("/auth/register", isNotAuthenticated, authCtrl.register);
 router.post("/auth/login", isNotAuthenticated, authCtrl.login);
+
+
+//-----------------------------Pet Routes-------------------------
+router.post(
+	"/pet/addPet",
+	isAuthenticated,
+	petCtrl.addPet
+);
+
+router.get(
+	"/pet/getAllPets",
+	isAuthenticated,
+	petCtrl.getAllPets
+);
+
+router.get(
+	"/pet/getPetsByOwnerUsername/:username",
+	isAuthenticated,
+	petCtrl.getPetsByOwnerUsername
+);
+
+router.get(
+	"/pet/getPetsByType/:type",
+	isAuthenticated,
+	petCtrl.getPetsByType
+);
+
+router.get(
+	"/pet/getPetsBySpecies/:species",
+	isAuthenticated,
+	petCtrl.getPetsBySpecies
+);
+
+router.get(
+	"/pet/getPetsByGender/:gender",
+	isAuthenticated,
+	petCtrl.getPetsByGender
+);
 
 module.exports = router;
