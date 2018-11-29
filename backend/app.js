@@ -4,6 +4,7 @@ var express = require("express"),
     MongoClient = require("mongodb").MongoClient,
     bodyParser = require("body-parser"),
     routes = require("./api/routes"),
+    config = require("./api/config"),
     router = express.Router(),
      path = require('path'),
     url = "mongodb://localhost:3000/mascota",
@@ -30,5 +31,6 @@ var express = require("express"),
 All requests should have /api before writing the route as a convention for api servers
 */
     app.use("/api", routes);
+    app.set("secret", config.SECRET);
     console.log("Mascota is up and running!");
     module.exports = app;
