@@ -22,6 +22,12 @@
     "url": "https://github.com/aligredo/mascota/issues"
   },
   "homepage": "https://github.com/aligredo/mascota#readme",
+  "contributors": [
+    { "name" : "Engy Ahmed Fawaz"
+      , "email" : "engy_ahmedfawaz@hotmail.com"
+      , "url" : "https://github.com/EngyFawaz"
+      }
+  ],
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",

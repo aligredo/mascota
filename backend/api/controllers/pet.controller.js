@@ -69,3 +69,23 @@ module.exports.getPetsByType = function(req, res, next) {
 		});
 	});
 };
+
+module.exports.getPetsBySpecies = function(req, res, next) {
+	if (!Validations.isString(req.body.species)) {
+		return res.status(422).json({
+			err: null,
+			msg: "species must be a valid String.",
+			data: null
+		});
+	}
+	Pet.find({ species: req.body.species }).exec(function(err, pets) {
+		if (err) {
+			return next(err);
+		}
+		res.status(200).json({
+			err: null,
+			msg: "Pets are retrieved successfully.",
+			data: pets
+		});
+	});
+};
