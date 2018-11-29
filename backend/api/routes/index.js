@@ -85,4 +85,16 @@ router.get(
 	petCtrl.getPetsByGender
 );
 
+router.get(
+	"/pet/getPetsByOffer/:offer",
+	isAuthenticated,
+	petCtrl.getPetsByOffer
+);
+
+router.delete(
+	"/pet/deletePet",
+	isAuthenticated,
+	petCtrl.deletePet
+);
+
 module.exports = router;
