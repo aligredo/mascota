@@ -3,6 +3,7 @@ var mongoose = require("mongoose"),
 	Validations = require("../utils/Validations"),
 	Encryption = require("../utils/Encryption"),
 	EMAIL_REGEX = require("../config").EMAIL_REGEX,
+	MOBILE_REGEX = require("../config").MOBILE_REGEX,
 	User = mongoose.model("User");
 
 /**
@@ -26,13 +27,18 @@ module.exports.register = function(req, res, next) {
 		req.body.confirmPassword &&
 		Validations.isString(req.body.confirmPassword) &&
 		req.body.username &&
-		Validations.isString(req.body.username);
+		Validations.isString(req.body.username)
+		req.body.mobileNumber &&
+		Validations.isString(req.body.mobileNumber) &&
+		Validations.matchesRegex(req.body.mobileNumber, MOBILE_REGEX)
+		;
+
 
 	if (!valid) {
 		return res.status(422).json({
 			err: null,
 			msg:
-				"email, password, confirm passsword and username are required fields.",
+				"email, password, confirm passsword, mobile number and username are required fields.",
 			data: null
 		});
 	}
