@@ -22,7 +22,8 @@ var mongoose = require("mongoose"),
             req.body.offer &&
             Validations.isString(req.body.offer) && 
             req.body.age && 
-            Validations.isNumber(req.body.age);
+            Validations.isNumber(req.body.age) &&
+            req.body.photoId;
     
         if (!valid) {
             return res.status(422).json({
