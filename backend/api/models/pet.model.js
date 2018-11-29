@@ -14,7 +14,6 @@ var petSchema = mongoose.Schema({
     },
 	name: {
 		type: String,
-		unique: true,
         trim: true,
         required: true,
 		lowercase: true
@@ -46,7 +45,7 @@ var petSchema = mongoose.Schema({
 		trim: true
     },
     age: {
-        type: String,
+        type: Number,
         trim: true,
         required: true
     }
