@@ -162,11 +162,32 @@ module.exports.getPetsByGender = function(req, res, next) {
 		}
 		res.status(200).json({
 			err: null,
-			msg: "gender are retrieved successfully.",
+			msg: "pets are retrieved successfully.",
 			data: pets
 		});
 	});
 };
+
+module.exports.getPetsByOffer = function(req, res, next) {
+	if (!Validations.isString(req.params.offer)) {
+		return res.status(422).json({
+			err: null,
+			msg: "offer must be a valid String.",
+			data: null
+		});
+	}
+	Pet.find({ offer: req.params.offer }).exec(function(err, pets) {
+		if (err) {
+			return next(err);
+		}
+		res.status(200).json({
+			err: null,
+			msg: "pets are retrieved successfully.",
+			data: pets
+		});
+	});
+};
+
 
 module.exports.deletePet = function(req, res, next){
     if (!(Validations.isString(req.body.gender) 
