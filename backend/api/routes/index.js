@@ -8,6 +8,22 @@ var express = require("express"),
 	petCtrl = require("../controllers/pet.controller");
 var MongoClient = require("mongodb").MongoClient;
 
+var mongoose = require("mongoose"),
+    Validations = require("../utils/Validations"),
+    Pet = mongoose.model("Pet"),
+    config = require("../config")
+	 router = express.Router(),
+	 cloudinary = require('cloudinary'),
+	 multer  = require('multer'),
+	 cloudinaryStorage = require('multer-storage-cloudinary'),
+
+     //Configuring Cloduinary API
+	cloudinary.config({  //Your Cloudinary API Data
+        cloud_name: config.ClOUDINARY_CLOUD_NAME,
+        api_key: config.CLOUDINARY_API_KEY,
+        api_secret: config.CLOUDINARY_API_SECRET
+      });
+
 var isAuthenticated = function(req, res, next) {
 	var token = req.headers["authorization"];
 	if (!token) {
@@ -96,5 +112,18 @@ router.delete(
 	isAuthenticated,
 	petCtrl.deletePet
 );
+
+//----------------------------------Image upload-----------------------------------------
+router.post("/sendImage",
+multer({storage: cloudinaryStorage({
+ cloudinary: cloudinary,
+ allowedFormats: ['jpg', 'png'],
+ destination: function (req, file, callback) { callback(null, './'.concat(req.body.ownerUsername));},
+ filename: function (req, file, callback) { callback(null, req.body.photoId)}}) 
+}).single('Image'), function(req, res){ 
+	return res.status(200).json({
+		msg:"Uploaded"
+	})
+} );
 
 module.exports = router;

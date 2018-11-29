@@ -1,21 +1,7 @@
 const express = require("express");
 var mongoose = require("mongoose"),
     Validations = require("../utils/Validations"),
-    Pet = mongoose.model("Pet"),
-    config = require("../config")
-	 router = express.Router(),
-	 cloudinary = require('cloudinary'),
-	 multer  = require('multer'),
-	 cloudinaryStorage = require('multer-storage-cloudinary'),
-	 path = require('path'),
-     express = require('express');
-     
-     //Configuring Cloduinary API
-	cloudinary.config({  //Your Cloudinary API Data
-        cloud_name: config.ClOUDINARY_CLOUD_NAME,
-        api_key: config.CLOUDINARY_API_KEY,
-        api_secret: config.CLOUDINARY_API_SECRET
-      });
+    Pet = mongoose.model("Pet");
 
 
     module.exports.addPet = function(req, res, next) {
@@ -70,13 +56,6 @@ var mongoose = require("mongoose"),
         Pet.create(req.body, function(err, newPet) {
             if (err) {
             }
-            var photoId = req.body.photoId;
-            multer({storage: cloudinaryStorage({
-                cloudinary: cloudinary,
-                allowedFormats: ['jpg', 'png'],
-                destination: function (req, file, callback) { callback(null, './');},
-                filename: function (req, file, callback) { callback(null, photoId)}})
-               }).single('Image')
             return res.status(201).json({
                 err: null,
                 msg:
