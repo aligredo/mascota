@@ -48,6 +48,12 @@ var petSchema = mongoose.Schema({
         type: Number,
         trim: true,
         required: true
+    },
+    photoId:{
+        type: String,
+        trim: true,
+        required: true,
+		lowercase: true
     }
 });
 
