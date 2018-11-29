@@ -162,8 +162,55 @@ module.exports.getPetsByGender = function(req, res, next) {
 		}
 		res.status(200).json({
 			err: null,
-			msg: "gender are retrieved successfully.",
+			msg: "pets are retrieved successfully.",
 			data: pets
 		});
 	});
+};
+
+module.exports.getPetsByOffer = function(req, res, next) {
+	if (!Validations.isString(req.params.offer)) {
+		return res.status(422).json({
+			err: null,
+			msg: "offer must be a valid String.",
+			data: null
+		});
+	}
+	Pet.find({ offer: req.params.offer }).exec(function(err, pets) {
+		if (err) {
+			return next(err);
+		}
+		res.status(200).json({
+			err: null,
+			msg: "pets are retrieved successfully.",
+			data: pets
+		});
+	});
+};
+
+
+module.exports.deletePet = function(req, res, next){
+    if (!(Validations.isString(req.body.gender) 
+        && Validations.isString(req.body.type) 
+        && Validations.isString(req.body.ownerUsername)
+        && Validations.isString(req.body.name))){
+		return res.status(422).json({
+			err: null,
+			msg: "not valid request",
+			data: null
+		});
+    }
+    else{
+        Pet.remove({ gender: req.params.gender, type: req.params.type,
+             ownerUsername: req.params.ownerUsername, name: req.params.name  }, true).exec(function(err, pets) {
+                if (err) {
+                    return next(err);
+                }
+                res.status(200).json({
+                    err: null,
+                    msg: "Deleted",
+                    data: null
+                });
+            });
+    }
 };
