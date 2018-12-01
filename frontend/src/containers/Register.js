@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import CustomButton from '../components/CustomButton'
+
+const containerStyle = {
+    background: '#00bcd4'
+  };
 
 const styles = theme => ({
     container: {
@@ -23,6 +27,8 @@ const styles = theme => ({
     },
   });
 
+  
+
 class Register extends Component{
     constructor(props){
         super(props);
@@ -33,7 +39,8 @@ class Register extends Component{
             lastName: "",
             passowrd: "",
             confirmPassword:"",
-            mobileNumber:""
+            mobileNumber:"",
+            passwordMatch: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -45,15 +52,25 @@ class Register extends Component{
       }
     
       handleSubmit(event) {
+        if(this.state.passowrd !== this.state.confirmPassword){
+            this.state.passwordMatch = true;
+        }
         event.preventDefault();
       }
 
       render() {
         const { classes } = this.props;
+        if(this.state.passwordMatch)
+            const passwordError = <p>Passowrds do not match</p>
+        else
+            const passwordError = <p></p>
         return (
-          <form onSubmit={this.handleSubmit} className={classes.container}>
+            <div style={containerStyle} >
+                
+                <form className={classes.container} noValidate autoComplete="off"> 
                 <TextField
                     required
+                    onChange={this.handleChange}
                     id="firstName"
                     label="First Name"
                     placeholder="First Name"
@@ -69,6 +86,7 @@ class Register extends Component{
                  />
                   <TextField
                     required
+                    onChange={this.handleChange}
                     id="username"
                     label="Username"
                     placeholder="Username"
@@ -85,6 +103,7 @@ class Register extends Component{
                  />
                   <TextField
                     required
+                    onChange={this.handleChange}
                     id="pasword"
                     label="Password"
                     type="password"
@@ -94,6 +113,7 @@ class Register extends Component{
                  />
                   <TextField
                     required
+                    onChange={this.handleChange}
                     id="confirmPasword"
                     label="Confirm Password"
                     type="password"
@@ -103,15 +123,23 @@ class Register extends Component{
                  />
                   <TextField
                     required
+                    onChange={this.handleChange}
                     id="mobileNumber"
                     label="Mobile Number"
                     placeholder="Mobile Number"
                     className={classes.textField}
                     margin="normal"
                  />
+                {
+                  passwordError
+                }
+
           </form>
+             <CustomButton name = "Submit" onClick={this.handleSubmit}/>
+            </div>
+         
         );
       };
 }
 
-export default Register;
+export default withStyles(styles)(Register);
