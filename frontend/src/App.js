@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './mascotaBig.png';
 import './App.css';
+import CustomButton from './components/CustomButton'
 
 class App extends Component {
   render() {
@@ -8,10 +9,12 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1>
+          <h1 className="mascota">
             <code>Mascota</code> 
           </h1>
           <p>The Pet Society</p>
+          <CustomButton color="yellow" name="Sign Up"/>
+          <CustomButton color="secondary" name="Login"/>
         </header>
       </div>
     );
