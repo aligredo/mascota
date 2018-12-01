@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import logo from '../mascota.png'
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import CustomButton from '../components/CustomButton'
@@ -94,9 +92,9 @@ class Register extends Component{
             mobileNumber:this.state.mobileNumber
             };
 
-            // axios.post(`localhost:3001/api/auth/register`, { userInfo })
-            // .then(res => {
-            // });
+             axios.post(`localhost:3001/api/auth/register`, { userInfo })
+             .then(res => {
+             });
 
             this.forceUpdate();
 
