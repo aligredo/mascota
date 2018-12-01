@@ -1,6 +1,6 @@
 // Global App Configuration
 module.exports = {
-	FRONTEND_URI: process.env.FRONTEND_URI || "http://localhost:4200/",
+	FRONTEND_URI: process.env.FRONTEND_URI || "http://localhost:3006/",
 	SECRET: "32876qihsdh76@&#!742(*#HG&#28702y&##@^!()(&^#))jhscbd", // for authentication
 	MONGO_URI: "mongodb://localhost:27017/mascota",
 	ClOUDINARY_CLOUD_NAME: 'maskota',

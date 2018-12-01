@@ -58,3 +58,4 @@ mongoose.connect(dburl, function(err) {
 });
 
 require("../models/user.model");
+require("../models/pet.model");

@@ -128,6 +128,7 @@ module.exports.register = function(req, res, next) {
 //done testing
 module.exports.login = function(req, res, next) {
 	// Check that the body keys are in the expected format and the required fields are there
+	console.log(req);
 	var valid =
 		req.body.email &&
 		Validations.isString(req.body.email) &&
