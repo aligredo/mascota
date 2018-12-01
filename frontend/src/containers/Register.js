@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import logo from '../mascota.png'
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -6,18 +8,19 @@ import TextField from '@material-ui/core/TextField';
 import CustomButton from '../components/CustomButton'
 
 const containerStyle = {
-    background: '#00bcd4'
+    background: '#9adcfb'
   };
 
 const styles = theme => ({
     container: {
-      display: 'flex',
+      display: 'flexbox',
       flexWrap: 'wrap',
+      height: '100%'
     },
     textField: {
       marginLeft: theme.spacing.unit,
       marginRight: theme.spacing.unit,
-      width: 200,
+      width: "95%",
     },
     dense: {
       marginTop: 19,
@@ -48,26 +51,75 @@ class Register extends Component{
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
+        if(event.target.getAttribute("id") === "firstName"){
+            this.setState({firstName: event.target.value});
+        }
+        if(event.target.getAttribute("id") === "lastName"){
+            this.setState({lastName: event.target.value});
+        }
+        if(event.target.getAttribute("id") === "username"){
+            this.setState({username: event.target.value});
+        }
+        if(event.target.getAttribute("id") === "email"){
+            this.setState({email: event.target.value});
+        }
+        if(event.target.getAttribute("id") === "password"){
+            this.setState({passowrd: event.target.value});
+        }
+        if(event.target.getAttribute("id") === "confirmPassword"){
+            this.setState({confirmPassword: event.target.value});
+        }
+        if(event.target.getAttribute("id") === "mobileNumber"){
+            this.setState({mobileNumber: event.target.value});
+            console.log(this.state.mobileNumber);
+        }
+        
       }
     
       handleSubmit(event) {
-        if(this.state.passowrd !== this.state.confirmPassword){
+         if(this.state.passowrd !== this.state.confirmPassword){
+            console.log("error");
             this.state.passwordMatch = true;
+            this.forceUpdate();
+        }
+        else{
+            this.state.passwordMatch = false;
+            var userInfo = {
+            username: this.state.username,
+            email:this.state.email,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            passowrd: this.state.passowrd,
+            confirmPassword:this.state.confirmPassword,
+            mobileNumber:this.state.mobileNumber
+            };
+
+            // axios.post(`localhost:3001/api/auth/register`, { userInfo })
+            // .then(res => {
+            // });
+
+            this.forceUpdate();
+
         }
         event.preventDefault();
       }
 
       render() {
+        var passwordError;
         const { classes } = this.props;
         if(this.state.passwordMatch)
-            const passwordError = <p>Passowrds do not match</p>
+             passwordError = <p>Passowrds do not match</p>
         else
-            const passwordError = <p></p>
+             passwordError = <p></p>
         return (
-            <div style={containerStyle} >
-                
-                <form className={classes.container} noValidate autoComplete="off"> 
+        <div style={containerStyle} >
+                <header>
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="mascota">
+            <code>Mascota</code> 
+          </h1>
+        </header>
+                <form className={classes.container}  autoComplete="off"> 
                 <TextField
                     required
                     onChange={this.handleChange}
@@ -78,6 +130,7 @@ class Register extends Component{
                     margin="normal"
                  />
                   <TextField
+                    required
                     id="lastName"
                     label="Last Name"
                     placeholder="Last Name"
@@ -104,7 +157,7 @@ class Register extends Component{
                   <TextField
                     required
                     onChange={this.handleChange}
-                    id="pasword"
+                    id="password"
                     label="Password"
                     type="password"
                     placeholder="Password"
@@ -114,7 +167,7 @@ class Register extends Component{
                   <TextField
                     required
                     onChange={this.handleChange}
-                    id="confirmPasword"
+                    id="confirmPassword"
                     label="Confirm Password"
                     type="password"
                     placeholder=" Confirm Password"
@@ -135,8 +188,8 @@ class Register extends Component{
                 }
 
           </form>
-             <CustomButton name = "Submit" onClick={this.handleSubmit}/>
-            </div>
+             <CustomButton name="Submit" onClick={this.handleSubmit}/>
+        </div>
          
         );
       };

@@ -69,6 +69,7 @@ function CustomButton(props) {
       <Button
         variant="contained"
         className={classNames(classes.margin, classes.cssRoot)}
+        onClick={props.onClick}
       >
         {props.name}
       </Button>
