@@ -38,7 +38,7 @@ class Register extends Component{
             email:"",
             firstName: "",
             lastName: "",
-            passowrd: "",
+            password: "",
             confirmPassword:"",
             mobileNumber:"",
             passwordMatch: false
@@ -62,7 +62,7 @@ class Register extends Component{
             this.setState({email: event.target.value});
         }
         if(event.target.getAttribute("id") === "password"){
-            this.setState({passowrd: event.target.value});
+            this.setState({password: event.target.value});
         }
         if(event.target.getAttribute("id") === "confirmPassword"){
             this.setState({confirmPassword: event.target.value});
@@ -75,7 +75,7 @@ class Register extends Component{
       }
     
       handleSubmit(event) {
-         if(this.state.passowrd !== this.state.confirmPassword){
+         if(this.state.password !== this.state.confirmPassword){
             console.log("error");
             this.state.passwordMatch = true;
             this.forceUpdate();
@@ -87,14 +87,21 @@ class Register extends Component{
             email:this.state.email,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
-            passowrd: this.state.passowrd,
+            password: this.state.password,
             confirmPassword:this.state.confirmPassword,
             mobileNumber:this.state.mobileNumber
             };
 
-             axios.post(`localhost:3001/api/auth/register`, { userInfo })
-             .then(res => {
-             });
+             axios.post('http://localhost:3000/api/auth/register', userInfo )
+             .then(function (response) {
+              console.log(response);
+              if(response.data.code === 200){
+                console.log("Register successfull");
+              }
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
 
             this.forceUpdate();
 
@@ -129,6 +136,7 @@ class Register extends Component{
                  />
                   <TextField
                     required
+                    onChange={this.handleChange}
                     id="lastName"
                     label="Last Name"
                     placeholder="Last Name"
@@ -146,6 +154,7 @@ class Register extends Component{
                  />
                   <TextField
                     required
+                    onChange={this.handleChange}
                     id="email"
                     label="Email"
                     placeholder="Email"

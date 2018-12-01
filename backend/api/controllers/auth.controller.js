@@ -17,7 +17,7 @@ var mongoose = require("mongoose"),
 //done testing
 module.exports.register = function(req, res, next) {
 	// Check that the body keys are in the expected format and the required fields are there
-	console.log(req.body);
+	console.log(req);
 	var valid =
 		req.body.email &&
 		Validations.isString(req.body.email) &&
@@ -27,11 +27,8 @@ module.exports.register = function(req, res, next) {
 		req.body.confirmPassword &&
 		Validations.isString(req.body.confirmPassword) &&
 		req.body.username &&
-		Validations.isString(req.body.username)
-		req.body.mobileNumber &&
-		Validations.isString(req.body.mobileNumber) &&
-		Validations.matchesRegex(req.body.mobileNumber, MOBILE_REGEX)
-		;
+		Validations.isString(req.body.username) &&
+		req.body.mobileNumber;
 
 
 	if (!valid) {
@@ -128,7 +125,7 @@ module.exports.register = function(req, res, next) {
 //done testing
 module.exports.login = function(req, res, next) {
 	// Check that the body keys are in the expected format and the required fields are there
-	console.log(req);
+	
 	var valid =
 		req.body.email &&
 		Validations.isString(req.body.email) &&
