@@ -4,6 +4,7 @@ import './App.css';
 import CustomButton from './components/CustomButton';
 import { Route , withRouter , Redirect} from 'react-router-dom'; 
 import Login from './containers/Login';
+import Register from './containers/Register'
 
 class App extends Component {
 
@@ -36,7 +37,7 @@ postSelectedHandlerS = (event) => {
           <CustomButton  name="Login" onClick={this.postSelectedHandler}/>
         </header>}></Route>
         <Route path="/Login" exact component ={Login}></Route>
-        {/* <Route path="/Register" exact component ={Register}></Route> */}
+        <Route path="/Register" exact component ={Register}></Route>
         </div>
       
     );
