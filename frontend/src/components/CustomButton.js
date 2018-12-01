@@ -68,7 +68,6 @@ function CustomButton(props) {
     <div className={classes.container}>
       <Button
         variant="contained"
-        color="primary"
         className={classNames(classes.margin, classes.cssRoot)}
       >
         {props.name}

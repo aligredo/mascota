@@ -13,8 +13,8 @@ class App extends Component {
             <code>Mascota</code> 
           </h1>
           <p>The Pet Society</p>
-          <CustomButton color="yellow" name="Sign Up"/>
-          <CustomButton color="secondary" name="Login"/>
+          <CustomButton  name="Sign Up"/>
+          <CustomButton  name="Login"/>
         </header>
       </div>
     );
