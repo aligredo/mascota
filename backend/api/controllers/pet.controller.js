@@ -192,9 +192,8 @@ module.exports.getPetsByOffer = function(req, res, next) {
 
 
 module.exports.deletePet = function(req, res, next){
-    if (!(Validations.isString(req.body.gender) 
-        && Validations.isString(req.body.type) 
-        && Validations.isString(req.body.ownerUsername)
+    if (!( req.body.ownerUsername && req.body.name &&
+           Validations.isString(req.body.ownerUsername)
         && Validations.isString(req.body.name))){
 		return res.status(422).json({
 			err: null,
@@ -203,7 +202,7 @@ module.exports.deletePet = function(req, res, next){
 		});
     }
     else{
-        Pet.remove({ gender: req.params.gender, type: req.params.type,
+        Pet.remove({
              ownerUsername: req.params.ownerUsername, name: req.params.name  }, true).exec(function(err, pets) {
                 if (err) {
                     return next(err);
