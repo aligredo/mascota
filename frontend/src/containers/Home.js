@@ -70,7 +70,7 @@ class Home extends Component{
       alt={pet.name}
       className={classes.media}
       height="140"
-      image={pet.imageId}
+      image={pet.photoId}
       title={pet.name}
     />
     <CardContent>

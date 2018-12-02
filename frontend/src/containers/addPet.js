@@ -108,7 +108,7 @@ class addPet extends Component{
     .catch(function (error) {
         console.log(error);
     });
-
+        window.location.reload();
         this.props.history.replace({pathname: '/Home'});
         event.preventDefault();
       }
@@ -136,7 +136,13 @@ class addPet extends Component{
         const formData = new FormData();
         formData.append('Image', this.state.selectedFile);
         axios.post('http://localhost:3000/api/photoId', {photoId: petInfo.photoId })
-        axios.post('http://localhost:3000/api/sendImage', formData);
+        .then(function (response) {
+            console.log(response);
+            if(response.status === 200){
+            console.log("done");
+            axios.post('http://localhost:3000/api/sendImage', formData);
+            }
+        })
       }
 
       render() {

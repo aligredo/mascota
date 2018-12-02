@@ -1,8 +1,15 @@
 const express = require("express");
 var mongoose = require("mongoose"),
     Validations = require("../utils/Validations"),
-    Pet = mongoose.model("Pet");
+    Pet = mongoose.model("Pet"),
+    config = require("../config")
+    cloudinary = require('cloudinary');
 
+    cloudinary.config({  //Your Cloudinary API Data
+        cloud_name: config.ClOUDINARY_CLOUD_NAME,
+        api_key: config.CLOUDINARY_API_KEY,
+        api_secret: config.CLOUDINARY_API_SECRET
+      });
 
     module.exports.addPet = function(req, res, next) {
         // Check that the body keys are in the expected format and the required fields are there
@@ -52,7 +59,7 @@ var mongoose = require("mongoose"),
                 });
             }
         });
-
+        req.body.photoId = "http://res.cloudinary.com/mascota/image/upload/".concat(req.body.photoId);
         Pet.create(req.body, function(err, newPet) {
             if (err) {
             }
@@ -60,7 +67,7 @@ var mongoose = require("mongoose"),
                 err: null,
                 msg:
                     "Pet added successfully.",
-                data: req.body
+                data: newPet
             });
         });
     };

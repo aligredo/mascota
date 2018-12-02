@@ -109,6 +109,10 @@ router.delete(
 global.photoId = "ss";
 router.post("/photoId", (req, res) => {global.photoId = req.body.photoId;
 	console.log(global.photoId)
+	return res.status(200).json({
+		data:null,
+		err:null
+	});
 });
 router.post("/sendImage",  multer({storage: cloudinaryStorage({
 	cloudinary: cloudinary,
