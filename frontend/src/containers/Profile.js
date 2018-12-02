@@ -7,8 +7,9 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-
-
+import CustomButon from '../components/CustomButton';
+import CardActions from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
 
 const containerStyle = {
     background: '#9adcfb'
@@ -50,7 +51,7 @@ class Profile extends Component{
     this.setState({user: localStorage.getItem("user")});
     axios.get('http://localhost:3000/api/pet/getPetsByOwnerUsername/:')
       .then(res => {
-        this.setState({pets: res.data});
+        this.setState({pets: res.data.data});
       })
   }
 
@@ -64,6 +65,13 @@ class Profile extends Component{
     })
   }
 
+  postSelectedHandler = (event) => {
+    this.props.history.push({pathname: '/addPet'});
+}
+
+postSelectedHandlerH = (event) => {
+    this.props.history.push({pathname: '/Home'});
+}
    render() {
     const { classes } = this.props;
     let petCards = this.state.pets.map((pet) => 
@@ -102,6 +110,8 @@ class Profile extends Component{
                 <code>Mascota</code>
             </h1>
         </header>
+        <CustomButon name="Add Pet" onClick={this.postSelectedHandler}/>
+        <CustomButon name="Home" onClick={this.postSelectedHandlerH}/>
         {petCards}
         </div>
    

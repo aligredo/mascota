@@ -60,70 +60,66 @@ var isNotAuthenticated = function(req, res, next) {
 };
 
 //-----------------------------Authentication Routes-------------------------
-router.post("/auth/register", isNotAuthenticated, authCtrl.register);
-router.post("/auth/login", isNotAuthenticated, authCtrl.login);
+router.post("/auth/register", authCtrl.register);
+router.post("/auth/login",  authCtrl.login);
 
 
 //-----------------------------Pet Routes-------------------------
 router.post(
 	"/pet/addPet",
-	isAuthenticated,
 	petCtrl.addPet
 );
 
 router.get(
 	"/pet/getAllPets",
-	isAuthenticated,
 	petCtrl.getAllPets
 );
 
 router.get(
 	"/pet/getPetsByOwnerUsername/:username",
-	isAuthenticated,
 	petCtrl.getPetsByOwnerUsername
 );
 
 router.get(
 	"/pet/getPetsByType/:type",
-	isAuthenticated,
 	petCtrl.getPetsByType
 );
 
 router.get(
 	"/pet/getPetsBySpecies/:species",
-	isAuthenticated,
 	petCtrl.getPetsBySpecies
 );
 
 router.get(
 	"/pet/getPetsByGender/:gender",
-	isAuthenticated,
 	petCtrl.getPetsByGender
 );
 
 router.get(
 	"/pet/getPetsByOffer/:offer",
-	isAuthenticated,
 	petCtrl.getPetsByOffer
 );
 
 router.delete(
 	"/pet/deletePet",
-	isAuthenticated,
 	petCtrl.deletePet
 );
 
 //----------------------------------Image upload-----------------------------------------
-router.post("/sendImage",
-multer({storage: cloudinaryStorage({
- cloudinary: cloudinary,
- allowedFormats: ['jpg', 'png'],
- destination: function (req, file, callback) { callback(null, './'.concat(req.body.ownerUsername));},
- filename: function (req, file, callback) { callback(null, req.body.photoId)}}) 
-}).single('Image'), function(req, res){ 
-	return res.status(200).json({
-		msg:"Uploaded"
-	})
-} );
+global.photoId = "ss";
+router.post("/photoId", (req, res) => {global.photoId = req.body.photoId;
+	console.log(global.photoId)
+});
+router.post("/sendImage",  multer({storage: cloudinaryStorage({
+	cloudinary: cloudinary,
+	allowedFormats: ['jpg', 'png'],
+	destination: function (req, file, callback) { callback(null, './uploads');},
+	filename: function (req, file, callback) { callback(null, global.photoId)}}) //MyImage is the name of the image which will be uploaded to your Cloudinary storage
+   }).single('Image'), function(req, res){ //To return OK status to the user after uploading
+	   return res.status(200).json({
+		   msg:"Uploaded"
+	   })
+   }
+);
 
 module.exports = router;

@@ -41,8 +41,11 @@ class addPet extends Component{
             offer:"",
             price: "",
             age: "",
-            selectedFile: null
+            contact: "",
+            selectedFile: null,
+            user: JSON.parse(localStorage.getItem('user'))
         };
+        console.log(JSON.parse(localStorage.getItem('user')));
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -71,14 +74,18 @@ class addPet extends Component{
             this.setState({age: event.target.value});
             console.log(this.state.age);
         }
+
+        if(event.target.getAttribute("id") === "contact"){
+            this.setState({contact: event.target.value});
+        }
         
       }
     
       handleSubmit(event) {
           
         var petInfo = {
-        ownerUsername: localStorage.getItem('user').username,
-        ownerMobileNumber: localStorage.getItem('user').mobileNumber,
+        ownerUsername: this.state.user.username,
+        ownerMobileNumber: this.state.contact,
         name: this.state.name,
         type: this.state.type,
         species: this.state.species,
@@ -86,13 +93,15 @@ class addPet extends Component{
         offer: this.state.offer,
         price: this.state.price,
         age: this.state.age,
-        photoId: ownerUsername.concat(name)
+        photoId: ""
         };
+
+        petInfo.photoId = petInfo.ownerUsername.concat(petInfo.name);
 
         axios.post('http://localhost:3000/api/pet/addPet', petInfo )
         .then(function (response) {
         console.log(response);
-        if(response.data.code === 200){
+        if(response.status === 200){
         console.log("Pet added successfully");
         }
     })
@@ -100,7 +109,7 @@ class addPet extends Component{
         console.log(error);
     });
 
-        this.forceUpdate();
+        this.props.history.replace({pathname: '/Home'});
         event.preventDefault();
       }
 
@@ -109,9 +118,25 @@ class addPet extends Component{
       }
 
       uploadHandler = () => {
-        const formData = new FormData()
-        formData.append('Image', this.state.selectedFile, this.state.photoId)
-        axios.post('http://localhost:3000/api/sendImage', formData)
+        var petInfo = {
+            ownerUsername: this.state.user.username,
+            ownerMobileNumber: this.state.contact,
+            name: this.state.name,
+            type: this.state.type,
+            species: this.state.species,
+            gender: this.state.gender,
+            offer: this.state.offer,
+            price: this.state.price,
+            age: this.state.age,
+            photoId: ""
+            };
+            
+            petInfo.photoId = petInfo.ownerUsername.concat(petInfo.name);
+            console.log(petInfo);
+        const formData = new FormData();
+        formData.append('Image', this.state.selectedFile);
+        axios.post('http://localhost:3000/api/photoId', {photoId: petInfo.photoId })
+        axios.post('http://localhost:3000/api/sendImage', formData);
       }
 
       render() {
@@ -187,6 +212,15 @@ class addPet extends Component{
                     id="age"
                     label="Age"
                     placeholder="Age"
+                    className={classes.textField}
+                    margin="normal"
+                 />
+                 <TextField
+                    required
+                    onChange={this.handleChange}
+                    id="contact"
+                    label="Contact"
+                    placeholder="Contact"
                     className={classes.textField}
                     margin="normal"
                  />

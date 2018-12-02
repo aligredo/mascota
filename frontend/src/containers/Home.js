@@ -55,7 +55,8 @@ class Home extends Component{
     this.setState({user: localStorage.getItem("user")});
     axios.get('http://localhost:3000/api/pet/getAllPets')
       .then(res => {
-        this.setState({pets: res.data});
+        console.log(res.data.data);
+        this.setState({pets: res.data.data});
       })
   }
 

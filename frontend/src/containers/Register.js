@@ -77,12 +77,12 @@ class Register extends Component{
       handleSubmit(event) {
          if(this.state.password !== this.state.confirmPassword){
             console.log("error");
-            this.state.passwordMatch = true;
+            this.setState({passwordMatch: true});
             this.forceUpdate();
         }
         else{
-            this.state.passwordMatch = false;
-            var userInfo = {
+          this.setState({passwordMatch: false});
+          var userInfo = {
             username: this.state.username,
             email:this.state.email,
             firstName: this.state.firstName,
@@ -97,7 +97,6 @@ class Register extends Component{
               console.log(response);
               if(response.data.code === 200){
                 console.log("Register successfull");
-                this.props.history.push({pathname: '/Login'});
               }
           })
           .catch(function (error) {
@@ -107,6 +106,7 @@ class Register extends Component{
             this.forceUpdate();
 
         }
+        this.props.history.push({pathname: '/Login'});
         event.preventDefault();
       }
 

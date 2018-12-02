@@ -3,7 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import CustomButton from '../components/CustomButton';
 import axios from 'axios';
-import logo from "../mascota.png"
+import logo from "../mascota.png";
+import { withRouter} from 'react-router-dom'; 
 
 const containerStyle = {
     background: '#9adcfb'
@@ -61,16 +62,17 @@ class Login extends Component {
                 })
             .then(function (response) {
                 console.log(response);
-                if(response.data.code === 200){
+                if(response.status === 200){
                   console.log("login successfull");
-                  localStorage.setItem('user', response.data);
-                  this.props.history.push({pathname: '/Home'});
+                  localStorage.setItem('user',  JSON.stringify(response.data.data));
+                  console.log(JSON.parse(localStorage.getItem('user')));
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
-        this.forceUpdate();
+
+        this.props.history.replace({pathname: '/Home'});
         event.preventDefault();
     }
 
@@ -78,6 +80,7 @@ class Login extends Component {
         const { classes } = this.props;
         return (
             <div style={containerStyle} >
+            
             <header>
                 <img src={logo} className="App-logo" alt="logo"/>
                 <h1 className = "mascota">
@@ -107,10 +110,10 @@ class Login extends Component {
                  />
                  <CustomButton name = "Submit" onClick={this.handleSubmit}/>
           </form>
-            </div>
+                       </div>
        
         );
       };
 }
 
-export default withStyles(styles)(Login);
+export default withRouter(withStyles(styles)(Login));
