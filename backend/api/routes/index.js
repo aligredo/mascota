@@ -75,8 +75,8 @@ router.get(
 	petCtrl.getAllPets
 );
 
-router.get(
-	"/pet/getPetsByOwnerUsername/:username",
+router.post(
+	"/pet/getPetsByOwnerUsername",
 	petCtrl.getPetsByOwnerUsername
 );
 
@@ -100,7 +100,7 @@ router.get(
 	petCtrl.getPetsByOffer
 );
 
-router.delete(
+router.post(
 	"/pet/deletePet",
 	petCtrl.deletePet
 );

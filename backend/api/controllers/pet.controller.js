@@ -98,14 +98,15 @@ module.exports.getAllPets = function(req, res, next){
 };
 
 module.exports.getPetsByOwnerUsername = function(req, res, next) {
-	if (!Validations.isString(req.params.username)) {
+    console.log(req);
+	if (!Validations.isString(req.body.username)) {
 		return res.status(422).json({
 			err: null,
 			msg: "username parameter must be a valid String.",
 			data: null
 		});
 	}
-	Pet.find({ ownerUsername: req.params.username }).exec(function(err, pets) {
+	Pet.find({ ownerUsername: req.body.username }).exec(function(err, pets) {
 		if (err) {
 			return next(err);
 		}
@@ -199,6 +200,7 @@ module.exports.getPetsByOffer = function(req, res, next) {
 
 
 module.exports.deletePet = function(req, res, next){
+    console.log(req);
     if (!( req.body.ownerUsername && req.body.name &&
            Validations.isString(req.body.ownerUsername)
         && Validations.isString(req.body.name))){
@@ -210,7 +212,7 @@ module.exports.deletePet = function(req, res, next){
     }
     else{
         Pet.remove({
-             ownerUsername: req.params.ownerUsername, name: req.params.name  }, true).exec(function(err, pets) {
+             ownerUsername: req.body.ownerUsername, name: req.body.name  }, true).exec(function(err, pets) {
                 if (err) {
                     return next(err);
                 }

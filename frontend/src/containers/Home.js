@@ -29,6 +29,7 @@ const styles = theme => ({
     },
     card: {
         maxWidth: 345,
+        padding: '20px'
       },
       media: {
         // ⚠️ object-fit is not supported by IE 11.
@@ -63,13 +64,13 @@ class Home extends Component{
    render() {
     const { classes } = this.props;
     let petCards = this.state.pets.map((pet) => 
-  <Card className={classes.card}>
+  <Card className={classes.card} class="col-md-6 col-md-offset-3">
   <CardActionArea>
     <CardMedia
       component="img"
       alt={pet.name}
       className={classes.media}
-      height="140"
+      height="1080"
       image={pet.photoId}
       title={pet.name}
     />

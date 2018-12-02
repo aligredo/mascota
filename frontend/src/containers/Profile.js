@@ -12,7 +12,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 
 const containerStyle = {
-    background: '#9adcfb'
+    background: '#9adcfb',
 };
 
 const styles = theme => ({
@@ -29,6 +29,7 @@ const styles = theme => ({
     },
     card: {
         maxWidth: 345,
+        padding: '20px'
       },
       media: {
         // ⚠️ object-fit is not supported by IE 11.
@@ -43,27 +44,34 @@ class Profile extends Component{
        super(props);
        this.state = {
            pets: [],
-           user:{}
+           user: JSON.parse(localStorage.getItem('user'))
        }
    }
 
    componentDidMount() {
-    this.setState({user: localStorage.getItem("user")});
-    axios.get('http://localhost:3000/api/pet/getPetsByOwnerUsername/:')
+    this.setState({user: JSON.parse(localStorage.getItem('user'))});
+    var payload = {
+        username: this.state.user.username
+    };
+    axios.post('http://localhost:3000/api/pet/getPetsByOwnerUsername', 
+        payload
+      )
       .then(res => {
+          console.log(res.data);
         this.setState({pets: res.data.data});
       })
   }
 
-  onClick(event){
-    axios.delete('http://localhost:3000/api/pet/deletePet', {
-        name: event.target.getAttribute("id"),
-        ownerUsername: this.state.user.username
-    })
-    .then(res => {
-     this.forceUpdate();
-    })
-  }
+//   onClick(event){
+//       var payload = {
+//         name: event.target.getAttribute('id'),
+//         ownerUsername: JSON.parse(localStorage.getItem('user')).username
+//       };
+//     axios.post('http://localhost:3000/api/pet/deletePet', payload)
+//     .then(res => {
+//         window.location.reload();
+//     })
+//   }
 
   postSelectedHandler = (event) => {
     this.props.history.push({pathname: '/addPet'});
@@ -75,14 +83,14 @@ postSelectedHandlerH = (event) => {
    render() {
     const { classes } = this.props;
     let petCards = this.state.pets.map((pet) => 
-  <Card className={classes.card}>
+  <Card className={classes.card} class="col-md-6 col-md-offset-3">
   <CardActionArea>
     <CardMedia
       component="img"
       alt={pet.name}
       className={classes.media}
-      height="140"
-      image={pet.imageId}
+      height="1080"
+      image={pet.photoId}
       title={pet.name}
     />
     <CardContent>
@@ -93,11 +101,9 @@ postSelectedHandlerH = (event) => {
        {pet.type}, {pet.species}, {pet.age}, {pet.gender}, {pet.offer}, {pet.price}.
       </Typography>
     </CardContent>
-    <CardActions>
-        <Button size="small" color="secondary" onClick={this.onClick} id={pet.name}>
+        {/* <Button size="small" color="secondary" onClick={this.onClick} id= {()=>pet.name}>
           Delete
-        </Button>
-      </CardActions>
+        </Button> */}
   </CardActionArea>
 </Card>
 
