@@ -97,6 +97,7 @@ class Register extends Component{
               console.log(response);
               if(response.data.code === 200){
                 console.log("Register successfull");
+                this.props.history.push({pathname: '/Login'});
               }
           })
           .catch(function (error) {

@@ -63,6 +63,8 @@ class Login extends Component {
                 console.log(response);
                 if(response.data.code === 200){
                   console.log("login successfull");
+                  localStorage.setItem('user', response.data);
+                  this.props.history.push({pathname: '/Home'});
                 }
             })
             .catch(function (error) {

@@ -182,7 +182,7 @@ module.exports.login = function(req, res, next) {
 				}
 			);
 			// Send the JWT to the frontend
-			res.status(200).json({ err: null, msg: "Welcome", data: token });
+			res.status(200).json({ err: null, msg: "Welcome", data: user });
 		});
 	});
 };
