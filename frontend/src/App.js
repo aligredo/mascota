@@ -6,6 +6,7 @@ import { Route , withRouter , Redirect} from 'react-router-dom';
 import Login from './containers/Login';
 import Register from './containers/Register';
 import Home from './containers/Home';
+import Profile from './containers/Profile';
 
 class App extends Component {
 
@@ -40,6 +41,7 @@ postSelectedHandlerS = (event) => {
         <Route path="/Login" exact component ={Login}></Route>
         <Route path="/Register" exact component ={Register}></Route>
         <Route path="/Home" exact component ={Home}></Route>
+        <Route path="/Profile" exact component ={Profile}></Route>
         </div>
       
     );

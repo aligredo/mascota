@@ -7,12 +7,11 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import CustomButton from '../components/CustomButton'
 
 
 
 const containerStyle = {
-    background: '#fff7b0'
+    background: '#9adcfb'
 };
 
 const styles = theme => ({
@@ -38,7 +37,7 @@ const styles = theme => ({
 
 
 
-class Home extends Component{
+class Profile extends Component{
    constructor(props){
        super(props);
        this.state = {
@@ -47,16 +46,22 @@ class Home extends Component{
        }
    }
 
-   postSelectedHandler = (event) => {
-    this.props.history.push({pathname: '/Profile'});
-}
-
    componentDidMount() {
     this.setState({user: localStorage.getItem("user")});
-    axios.get('http://localhost:3000/api/pet/getAllPets')
+    axios.get('http://localhost:3000/api/pet/getPetsByOwnerUsername/:')
       .then(res => {
         this.setState({pets: res.data});
       })
+  }
+
+  onClick(event){
+    axios.delete('http://localhost:3000/api/pet/deletePet', {
+        name: event.target.getAttribute("id"),
+        ownerUsername: this.state.user.username
+    })
+    .then(res => {
+     this.forceUpdate();
+    })
   }
 
    render() {
@@ -79,11 +84,12 @@ class Home extends Component{
       <Typography component="p">
        {pet.type}, {pet.species}, {pet.age}, {pet.gender}, {pet.offer}, {pet.price}.
       </Typography>
-      <Typography component="p">
-       Owner: {pet.ownerUsername}
-       Contact: {pet.ownerMobileNumber}
-      </Typography>
     </CardContent>
+    <CardActions>
+        <Button size="small" color="secondary" onClick={this.onClick} id={pet.name}>
+          Delete
+        </Button>
+      </CardActions>
   </CardActionArea>
 </Card>
 
@@ -96,7 +102,6 @@ class Home extends Component{
                 <code>Mascota</code>
             </h1>
         </header>
-        <CustomButton name="Profile" onClick={this.postSelectedHandler}/>
         {petCards}
         </div>
    
@@ -104,4 +109,4 @@ class Home extends Component{
   };
 }
 
-export default withStyles(styles)(Home);
+export default withStyles(styles)(Profile);
