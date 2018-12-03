@@ -13,9 +13,9 @@ https://www.docker.com/products/docker-desktop
 
 ### Steps to start project with Docker
 
-1. Build Docker image along with the binaries specified by the Makefile:
+Run Docker Compose file using following comand:
 ```
-https://www.docker.com/products/docker-desktop
+docker-compose up
 ```
 
 ## Built With
