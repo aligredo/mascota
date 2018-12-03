@@ -95,18 +95,23 @@ class Register extends Component{
              axios.post('http://localhost:3000/api/auth/register', userInfo )
              .then(function (response) {
               console.log(response);
-              if(response.data.code === 200){
+              if(response.status === 201){
                 console.log("Register successfull");
+                localStorage.setItem('registered',JSON.stringify(response.status));
               }
           })
           .catch(function (error) {
               console.log(error);
           });
 
+            
             this.forceUpdate();
 
-        }
-        this.props.history.push({pathname: '/Login'});
+        } 
+        console.log(JSON.parse(localStorage.getItem('registered')) );
+        if(JSON.parse(localStorage.getItem('registered')) === 201)
+          this.props.history.push({pathname: '/Login'});
+
         event.preventDefault();
       }
 

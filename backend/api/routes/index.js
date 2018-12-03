@@ -1,16 +1,10 @@
 var express = require("express"),
 	router = express.Router(),
-	jwt = require("jsonwebtoken"),
-	path = require('path'),
 	express = require('express'),
-	app = express();
 	authCtrl = require("../controllers/auth.controller");
 	petCtrl = require("../controllers/pet.controller");
-var MongoClient = require("mongodb").MongoClient;
 
 var mongoose = require("mongoose"),
-    Validations = require("../utils/Validations"),
-    Pet = mongoose.model("Pet"),
     config = require("../config")
 	 router = express.Router(),
 	 cloudinary = require('cloudinary'),
@@ -23,41 +17,6 @@ var mongoose = require("mongoose"),
         api_key: config.CLOUDINARY_API_KEY,
         api_secret: config.CLOUDINARY_API_SECRET
       });
-
-var isAuthenticated = function(req, res, next) {
-	var token = req.headers["authorization"];
-	if (!token) {
-		return res.status(401).json({
-			error: null,
-			msg: "You have to login first.",
-			data: null
-		});
-	}
-	jwt.verify(token, req.app.get("secret"), function(err, decodedToken) {
-		if (err) {
-			return res.status(401).json({
-				error: err,
-				msg: "Login timed out, please login again.",
-				data: null
-			});
-		}
-		req.decodedToken = decodedToken;
-		next();
-	});
-};
-
-var isNotAuthenticated = function(req, res, next) {
-	// Check that the request doesn't have the JWT in the authorization header
-	var token = req.headers["authorization"];
-	if (token) {
-		return res.status(403).json({
-			error: null,
-			msg: "You are already logged in.",
-			data: null
-		});
-	}
-	next();
-};
 
 //-----------------------------Authentication Routes-------------------------
 router.post("/auth/register", authCtrl.register);
@@ -119,11 +78,8 @@ router.post("/sendImage",  multer({storage: cloudinaryStorage({
 	allowedFormats: ['jpg', 'png'],
 	destination: function (req, file, callback) { callback(null, './uploads');},
 	filename: function (req, file, callback) { callback(null, global.photoId)}}) //MyImage is the name of the image which will be uploaded to your Cloudinary storage
-   }).single('Image'), function(req, res){ //To return OK status to the user after uploading
-	   return res.status(200).json({
-		   msg:"Uploaded"
-	   })
-   }
+   }).single('Image')
+
 );
 
 module.exports = router;

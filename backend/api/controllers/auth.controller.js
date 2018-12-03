@@ -3,7 +3,6 @@ var mongoose = require("mongoose"),
 	Validations = require("../utils/Validations"),
 	Encryption = require("../utils/Encryption"),
 	EMAIL_REGEX = require("../config").EMAIL_REGEX,
-	MOBILE_REGEX = require("../config").MOBILE_REGEX,
 	User = mongoose.model("User");
 
 /**

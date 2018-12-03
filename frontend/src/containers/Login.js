@@ -65,14 +65,16 @@ class Login extends Component {
                 if(response.status === 200){
                   console.log("login successfull");
                   localStorage.setItem('user',  JSON.stringify(response.data.data));
+                  localStorage.setItem('login',  JSON.stringify(response.status));
                   console.log(JSON.parse(localStorage.getItem('user')));
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
-
-        this.props.history.replace({pathname: '/Home'});
+        
+        if(JSON.parse(localStorage.getItem('login')) === 200)
+            this.props.history.replace({pathname: '/Home'});
         event.preventDefault();
     }
 

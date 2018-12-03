@@ -8,8 +8,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import CustomButon from '../components/CustomButton';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
 
 const containerStyle = {
     background: '#9adcfb',
@@ -62,17 +60,6 @@ class Profile extends Component{
       })
   }
 
-//   onClick(event){
-//       var payload = {
-//         name: event.target.getAttribute('id'),
-//         ownerUsername: JSON.parse(localStorage.getItem('user')).username
-//       };
-//     axios.post('http://localhost:3000/api/pet/deletePet', payload)
-//     .then(res => {
-//         window.location.reload();
-//     })
-//   }
-
   postSelectedHandler = (event) => {
     this.props.history.push({pathname: '/addPet'});
 }
@@ -101,9 +88,6 @@ postSelectedHandlerH = (event) => {
        {pet.type}, {pet.species}, {pet.age}, {pet.gender}, {pet.offer}, {pet.price}.
       </Typography>
     </CardContent>
-        {/* <Button size="small" color="secondary" onClick={this.onClick} id= {()=>pet.name}>
-          Delete
-        </Button> */}
   </CardActionArea>
 </Card>
 
