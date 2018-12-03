@@ -13,9 +13,9 @@ var mongoose = require("mongoose"),
 
      //Configuring Cloduinary API
 	cloudinary.config({  //Your Cloudinary API Data
-        cloud_name: config.ClOUDINARY_CLOUD_NAME,
-        api_key: config.CLOUDINARY_API_KEY,
-        api_secret: config.CLOUDINARY_API_SECRET
+        cloud_name: process.env.ClOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET
       });
 
 //-----------------------------Authentication Routes-------------------------

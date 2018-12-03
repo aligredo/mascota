@@ -1,5 +1,4 @@
 var mongoose = require("mongoose"),
-	jwt = require("jsonwebtoken"),
 	Validations = require("../utils/Validations"),
 	Encryption = require("../utils/Encryption"),
 	EMAIL_REGEX = require("../config").EMAIL_REGEX,
@@ -169,18 +168,6 @@ module.exports.login = function(req, res, next) {
 					.status(401)
 					.json({ err: null, msg: "Password is incorrect.", data: null });
 			}
-			// Create a JWT and put in it the user object from the database
-			var token = jwt.sign(
-				{
-					// user.toObject transorms the document to a json object without the password as we can't leak sensitive info to the frontend
-					user: user.toObject()
-				},
-				req.app.get("secret"),
-				{
-					expiresIn: "12h"
-				}
-			);
-			// Send the JWT to the frontend
 			res.status(200).json({ err: null, msg: "Welcome", data: user });
 		});
 	});

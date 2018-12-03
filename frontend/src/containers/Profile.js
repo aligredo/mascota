@@ -51,7 +51,8 @@ class Profile extends Component{
     var payload = {
         username: this.state.user.username
     };
-    axios.post('http://localhost:3000/api/pet/getPetsByOwnerUsername', 
+    var link = "http://localhost:3005/api".concat('/pet/getPetsByOwnerUsername');
+    axios.post(link, 
         payload
       )
       .then(res => {
