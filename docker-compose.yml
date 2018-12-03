@@ -1,10 +1,35 @@
 version: '3'
 services:
-  react-app:
-    container_name: react-app
-    image: react-app
+  fend7:
+    container_name: fend7
+    image: fend7
     build: ./frontend
     environment:
-      NODE_ENV: production
+     - NODE_ENV=production
+     - BACKEND_URI=http://localhost:3005/api
     ports:
     - "3000:3000"
+    depends_on:
+      - "mongo-db"
+      - "bend8"
+  bend8:
+    container_name: bend8
+    image: bend8
+    build: ./backend
+    environment:
+      - FRONTEND_URI=http://localhost:3000/
+      - SECRET=32876qihsdh76@&#!742(*#HG&#28702y&##@^!()(&^#))jhscbd
+      - MONGO_URI=mongodb://mongo-db/mascota
+      - ClOUDINARY_CLOUD_NAME=mascota
+      - CLOUDINARY_API_KEY=819421223196944
+      - CLOUDINARY_API_SECRET=6DIgJoqfegdqrRygJrRz09Psj8k
+    ports:
+      - "3005:3005"
+    depends_on:
+      - "mongo-db"
+  mongo-db:
+    container_name: mongo-db
+    image: "mongo-db"
+    build: ./mongo
+    ports:
+      - "27017:27017"

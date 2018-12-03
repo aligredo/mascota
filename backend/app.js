@@ -32,5 +32,6 @@ All requests should have /api before writing the route as a convention for api s
 */
     app.use("/api", routes);
     app.set("secret", config.SECRET);
+    console.log(process.env.MONGO_URI)
     console.log("Mascota is up and running!");
     module.exports = app;

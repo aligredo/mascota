@@ -97,11 +97,11 @@ class addPet extends Component{
         };
 
         petInfo.photoId = petInfo.ownerUsername.concat(petInfo.name);
-
-        axios.post('http://localhost:3000/api/pet/addPet', petInfo )
+        var link = process.env.BACKEND_URI.concat('/pet/addPet');
+        axios.post(link, petInfo )
         .then(function (response) {
         console.log(response);
-        if(response.status === 200){
+        if(response.status === 201){
         console.log("Pet added successfully");
         }
     })
@@ -135,12 +135,12 @@ class addPet extends Component{
             console.log(petInfo);
         const formData = new FormData();
         formData.append('Image', this.state.selectedFile);
-        axios.post('http://localhost:3000/api/photoId', {photoId: petInfo.photoId })
+        axios.post('http://localhost:3005/api/photoId', {photoId: petInfo.photoId })
         .then(function (response) {
             console.log(response);
             if(response.status === 200){
             console.log("done");
-            axios.post('http://localhost:3000/api/sendImage', formData);
+            axios.post('http://localhost:3005/api/sendImage', formData);
             }
         })
       }

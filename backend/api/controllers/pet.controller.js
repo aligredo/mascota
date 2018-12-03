@@ -63,12 +63,6 @@ var mongoose = require("mongoose"),
         Pet.create(req.body, function(err, newPet) {
             if (err) {
             }
-            return res.status(201).json({
-                err: null,
-                msg:
-                    "Pet added successfully.",
-                data: newPet
-            });
         });
     };
 
