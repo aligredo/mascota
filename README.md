@@ -1,5 +1,5 @@
 # MASCOTA
-![alt text](https://res.cloudinary.com/mascota/image/upload/v1543845606/mascota.png)
+![alt text](https://res.cloudinary.com/mascota/image/upload/v1543845163/mascotaBig.png)
 Mascota is a web platform for offering pets for adoption , sale , hosting or marriage. Users have profiles and they have the option to add a pet withh their own offer.
 
 ## Getting Started
