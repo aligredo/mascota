@@ -91,8 +91,7 @@ class Register extends Component{
             confirmPassword:this.state.confirmPassword,
             mobileNumber:this.state.mobileNumber
             };
-            console.log(process.env.BACKEND_URI);
-            var link = process.env.BACKEND_URI.concat('/auth/register');
+            var link = "http://localhost:3005/api".concat('/auth/register');
              axios.post(link, userInfo )
              .then(function (response) {
               console.log(response);

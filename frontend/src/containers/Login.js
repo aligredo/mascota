@@ -54,7 +54,7 @@ class Login extends Component {
     }
 
     handleSubmit(event){
-        var apiBaseUrl = process.env.BACKEND_URI;
+        var apiBaseUrl = "http://localhost:3005/api";
 
             axios.post(apiBaseUrl+'auth/login', {
                 email: this.state.email,

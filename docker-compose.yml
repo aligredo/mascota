@@ -1,8 +1,8 @@
 version: '3'
 services:
-  fend7:
-    container_name: fend7
-    image: fend7
+  reactjsapp:
+    container_name: reactjsapp
+    image: reactjsapp
     build: ./frontend
     environment:
      - NODE_ENV=production
@@ -11,10 +11,10 @@ services:
     - "3000:3000"
     depends_on:
       - "mongo-db"
-      - "bend8"
-  bend8:
-    container_name: bend8
-    image: bend8
+      - "nodejsapp"
+  nodejsapp:
+    container_name: nodejsapp
+    image: nodejsapp
     build: ./backend
     environment:
       - FRONTEND_URI=http://localhost:3000/

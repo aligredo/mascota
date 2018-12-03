@@ -97,7 +97,7 @@ class addPet extends Component{
         };
 
         petInfo.photoId = petInfo.ownerUsername.concat(petInfo.name);
-        var link = process.env.BACKEND_URI.concat('/pet/addPet');
+        var link = "http://localhost:3005/api".concat('/pet/addPet');
         axios.post(link, petInfo )
         .then(function (response) {
         console.log(response);

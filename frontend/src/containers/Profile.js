@@ -51,7 +51,7 @@ class Profile extends Component{
     var payload = {
         username: this.state.user.username
     };
-    var link = process.env.BACKEND_URI.concat('/pet/getPetsByOwnerUsername');
+    var link = "http://localhost:3005/api".concat('/pet/getPetsByOwnerUsername');
     axios.post(link, 
         payload
       )

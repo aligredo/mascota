@@ -54,7 +54,7 @@ class Home extends Component{
 
    componentDidMount() {
     this.setState({user: localStorage.getItem("user")});
-    var link = process.env.BACKEND_URI.concat('/pet/getAllPets');
+    var link = "http://localhost:3005/api".concat('/pet/getAllPets');
     axios.get(link)
       .then(res => {
         console.log(res.data.data);
@@ -83,7 +83,7 @@ class Home extends Component{
        {pet.type}, {pet.species}, {pet.age}, {pet.gender}, {pet.offer}, {pet.price}.
       </Typography>
       <Typography component="p">
-       Owner: {pet.ownerUsername} 
+       Owner: {pet.ownerUsername}, 
        Contact: {pet.ownerMobileNumber}
       </Typography>
     </CardContent>
